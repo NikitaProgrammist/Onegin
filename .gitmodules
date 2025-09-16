@@ -1,0 +1,3 @@
+[submodule "str"]
+	path = str
+	url = https://github.com/NikitaProgrammist/str
