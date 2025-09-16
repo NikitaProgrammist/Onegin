@@ -30,6 +30,26 @@ Errors readFile(Text * text, char * filename) {
   return SUCCESS;
 }
 
+Errors writeFile(Text * text, char * filename) {
+  FILE * fp = fopen(filename, "w");
+  if (fp == NULL) {
+    return OPEN_FILE_ERROR;
+  }
+
+  for (size_t strnum = 0; strnum < text->str_count; strnum++) {
+    size_t index = 0;
+
+    while (text->array[strnum][index] != '\0') {
+      putc(text->array[strnum][index++], fp);
+    }
+
+    putc('\n', fp);
+  }
+
+  fclose(fp);
+  return SUCCESS;
+}
+
 size_t getFileSize(FILE * fp) {
   struct stat st = {};
   if (fstat(fileno(fp), &st) == 0) {

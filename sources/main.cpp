@@ -9,7 +9,7 @@
 
 int main(int argc, char * argv[]) {
   Text text = {};
-  SortType type = QSORT;
+  SortType type = BUBBLE;
   Errors result = readFile(&text, "../sources/text.txt");
 
   errorsParser(result);

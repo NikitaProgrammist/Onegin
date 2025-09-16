@@ -20,7 +20,7 @@ void choiceSort(Text * text, SortType type) {
 }
 
 void bubbleSort(Text * text) {
-  return;
+
 }
 
 int mySortCmpStr(const void * a, const void * b) {

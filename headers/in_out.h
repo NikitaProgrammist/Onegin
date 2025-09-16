@@ -19,6 +19,7 @@ enum Errors {
 };
 
 Errors readFile(Text * text, char * filename);
+Errors writeFile(Text * text, char * filename);
 size_t getFileSize(FILE * fp);
 void getBuffer(FILE * fp, Text * text);
 void getArray(Text * text);
