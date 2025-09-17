@@ -7,7 +7,8 @@ enum SortType {
 };
 
 void choiceSort(Text * text, SortType type);
-void bubbleSort(Text * text);
+void bubbleSort(void * array, size_t len, size_t typesize, int (* myCmp)(const void * a, const void * b));
+void swap(void * a, void * b, size_t typesize);
 int mySortCmpStr(const void * a, const void * b);
 
 #endif // SORTS_H

@@ -19,7 +19,8 @@ int main(int argc, char * argv[]) {
 
   choiceSort(&text, type);
 
-  writeFile(&text, "../sources/sorttext.txt");
+  result = writeFile(&text, "../sources/sorttext.txt");
+  errorsParser(result);
 
   free(text.buffer);
   free(text.array);
