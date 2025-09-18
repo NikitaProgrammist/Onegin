@@ -5,17 +5,28 @@
 #include "str.h"
 #include "sorts.h"
 
-void choiceSort(Text * text, SortType type) {
-  switch (type) {
+void choiceSort(Text * text, SortType sort_type, CmpType cmp_type) {
+  switch (sort_type) {
     case BUBBLE:
-      bubbleSort(text->array, text->str_count, sizeof(char *), mySortCmpStr);
+      bubbleSort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
       break;
     case QSORT:
-      qsort(text->array, text->str_count, sizeof(char *), mySortCmpStr);
+      qsort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
       break;
     default:
-      qsort(text->array, text->str_count, sizeof(char *), mySortCmpStr);
+      qsort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
       break;
+  }
+}
+
+myCmp choiceCmp(CmpType cmp_type) {
+  switch (cmp_type) {
+    case START:
+      return mySortCmpStartStr;
+    case END:
+      return mySortCmpEndStr;
+    default:
+      return mySortCmpStartStr;
   }
 }
 
@@ -44,8 +55,14 @@ void swap(void * a, void * b, size_t typesize) {
   }
 }
 
-int mySortCmpStr(const void * a, const void * b) {
+int mySortCmpStartStr(const void * a, const void * b) {
   const char * str1 = *(const char **) a;
   const char * str2 = *(const char **) b;
-  return myStrCmp(str1, str2);
+  return myStrCmpStart(str1, str2);
+}
+
+int mySortCmpEndStr(const void * a, const void * b) {
+  const char * str1 = *(const char **) a;
+  const char * str2 = *(const char **) b;
+  return myStrCmpEnd(str1, str2);
 }

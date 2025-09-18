@@ -9,7 +9,8 @@
 
 int main(int argc, char * argv[]) {
   Text text = {};
-  SortType type = BUBBLE;
+  SortType sort_type = QSORT;
+  CmpType cmp_type = START;
   Errors result = readFile(&text, "../sources/text.txt");
 
   errorsParser(result);
@@ -17,7 +18,7 @@ int main(int argc, char * argv[]) {
     return 1;
   }
 
-  choiceSort(&text, type);
+  choiceSort(&text, sort_type, cmp_type);
 
   result = writeFile(&text, "../sources/sorttext.txt");
   errorsParser(result);
