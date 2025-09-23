@@ -9,7 +9,7 @@
 
 int main(int argc, char * argv[]) {
   Text text = {};
-  SortType sort_type = QSORT;
+  SortType sort_type = MYQSORT;
   CmpType cmp_type = START;
   Errors result = readFile(&text, "../sources/text.txt");
 

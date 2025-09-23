@@ -10,6 +10,9 @@ void choiceSort(Text * text, SortType sort_type, CmpType cmp_type) {
     case BUBBLE:
       bubbleSort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
       break;
+    case MYQSORT:
+      naivnyQuickSort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
+      break;
     case QSORT:
       qsort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
       break;
@@ -19,7 +22,7 @@ void choiceSort(Text * text, SortType sort_type, CmpType cmp_type) {
   }
 }
 
-myCmp choiceCmp(CmpType cmp_type) {
+Cmp choiceCmp(CmpType cmp_type) {
   switch (cmp_type) {
     case START:
       return mySortCmpStartStr;
@@ -43,6 +46,53 @@ void bubbleSort(void * array, size_t len, size_t typesize, int (* myCmp)(const v
       break;
     }
   }
+}
+
+void naivnyQuickSort(void * array, size_t len, size_t typesize, int (* myCmp)(const void * a, const void * b)) {
+  if (len < 2) {
+    return;
+  }
+
+  void * arrmin = (void *) calloc(len, typesize);
+  void * arrmax = (void *) calloc(len, typesize);
+  size_t indexmin = 0, indexmax = 0;
+
+  for (size_t i = 1; i < len; i++) {
+    if (myCmp((char *) array + typesize * i, array) < 0) {
+      for (size_t j = 0; j < typesize; j++) {
+        *((char *) arrmin + typesize * indexmin + j) = *((char *) array + typesize * i + j);
+      }
+      indexmin++;
+    }
+    else {
+      for (size_t j = 0; j < typesize; j++) {
+        *((char *) arrmax + typesize * indexmax + j) = *((char *) array + typesize * i + j);
+      }
+      indexmax++;
+    }
+  }
+
+  naivnyQuickSort(arrmin, indexmin, typesize, myCmp);
+  naivnyQuickSort(arrmax, indexmax, typesize, myCmp);
+
+  for (size_t j = 0; j < typesize; j++) {
+    *((char *) array + typesize * indexmin + j) = *((char *) array + j);
+  }
+
+  for (size_t i = 0; i < indexmin; i++) {
+    for (size_t j = 0; j < typesize; j++) {
+      *((char *) array + typesize * i + j) = *((char *) arrmin + typesize * i + j);
+    }
+  }
+
+  for (size_t i = (indexmin + 1); i < len; i++) {
+    for (size_t j = 0; j < typesize; j++) {
+      *((char *) array + typesize * i + j) = *((char *) arrmax + typesize * (i - indexmin - 1) + j);
+    }
+  }
+
+  free(arrmin);
+  free(arrmax);
 }
 
 void swap(void * a, void * b, size_t typesize) {
