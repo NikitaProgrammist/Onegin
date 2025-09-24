@@ -30,7 +30,7 @@ Errors readFile(Text * text, char * filename) {
   return SUCCESS;
 }
 
-Errors writeFile(Text * text, char * filename) {
+Errors writeFile(Text * text, char * filename) { // fwrite
   FILE * fp = fopen(filename, "w");
   if (fp == NULL) {
     return OPEN_FILE_ERROR;
