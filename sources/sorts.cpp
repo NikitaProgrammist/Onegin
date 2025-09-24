@@ -11,7 +11,7 @@ void choiceSort(Text * text, SortType sort_type, CmpType cmp_type) {
       bubbleSort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
       break;
     case MYQSORT:
-      naivnyQuickSort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
+      naiveQuickSort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
       break;
     case QSORT:
       qsort(text->array, text->str_count, sizeof(char *), choiceCmp(cmp_type));
@@ -48,7 +48,7 @@ void bubbleSort(void * array, size_t len, size_t typesize, int (* myCmp)(const v
   }
 }
 
-void naivnyQuickSort(void * array, size_t len, size_t typesize, int (* myCmp)(const void * a, const void * b)) {
+void naiveQuickSort(void * array, size_t len, size_t typesize, int (* myCmp)(const void * a, const void * b)) {
   if (len < 2) {
     return;
   }
@@ -72,8 +72,8 @@ void naivnyQuickSort(void * array, size_t len, size_t typesize, int (* myCmp)(co
     }
   }
 
-  naivnyQuickSort(arrmin, indexmin, typesize, myCmp);
-  naivnyQuickSort(arrmax, indexmax, typesize, myCmp);
+  naiveQuickSort(arrmin, indexmin, typesize, myCmp);
+  naiveQuickSort(arrmax, indexmax, typesize, myCmp);
 
   for (size_t j = 0; j < typesize; j++) {
     *((char *) array + typesize * indexmin + j) = *((char *) array + j);
